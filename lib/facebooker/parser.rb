@@ -556,7 +556,7 @@ module Facebooker
   
   class LinksPost < Parser # :nodoc
     def self.process(data)
-      element('links_post_response', data).text_value
+      element('links_post_response', data).content.strip
     end
   end
 
