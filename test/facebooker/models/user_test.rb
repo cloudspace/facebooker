@@ -175,10 +175,22 @@ class Facebooker::UserTest < Test::Unit::TestCase
     @session.expects(:post).never
     @user.status="my status"
   end
+  
   def test_can_set_status_with_string
     @session.expects(:post).with('facebook.users.setStatus', {:status=>"my status",:status_includes_verb=>1, :uid => @user.uid}, false)
     @user.set_status("my status")
   end
+  
+  def test_can_set_link_with_url_and_comment
+    @session.expects(:post).with('facebook.links.post', {:url=>"http://www.cloudspace.com",:comment=>"love this site", :uid => @user.uid}, false)
+    @user.post_link("http://www.cloudspace.com","love this site")
+  end  
+
+  def test_can_set_link_with_url_and_no_comment
+    @session.expects(:post).with('facebook.links.post', {:url=>"http://www.cloudspace.com",:comment=>"", :uid => @user.uid}, false)
+    @user.post_link("http://www.cloudspace.com")
+  end  
+
 
   def test_get_events
     @user = Facebooker::User.new(9507801, @session)

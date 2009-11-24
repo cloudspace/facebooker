@@ -394,6 +394,17 @@ module Facebooker
       end
     end
     
+    
+    ##
+    # Posts a Link for a User
+    #
+    # requires extended permission 'publish_stream' or 'share_item'
+    def post_link(url, comment="")
+      session.post('facebook.links.post', {:url=>url,:comment=>comment,:uid=>uid}, false) do |ret|
+        ret
+      end
+    end
+    
     ##
     # Checks to see if the user has enabled the given extended permission
     def has_permission?(ext_perm) # ext_perm = email, offline_access, status_update, photo_upload, create_listing, create_event, rsvp_event, sms

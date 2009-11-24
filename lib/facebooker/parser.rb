@@ -553,6 +553,12 @@ module Facebooker
       element('users_setStatus_response',data).content.strip == '1'
     end
   end
+  
+  class LinksPost < Parser # :nodoc
+    def self.process(data)
+      element('links_post_response', data).text_value
+    end
+  end
 
   class GetStatus < Parser # :nodoc:
     def self.process(data)
@@ -653,6 +659,7 @@ module Facebooker
       'facebook.users.getInfo' => UserInfo,
       'facebook.users.getStandardInfo' => UserStandardInfo,
       'facebook.users.setStatus' => SetStatus,
+      'facebook.links.post' => LinksPost,      
       'facebook.status.get' => GetStatus,
       'facebook.users.getLoggedInUser' => GetLoggedInUser,
       'facebook.users.hasAppPermission' => UserHasPermission,
